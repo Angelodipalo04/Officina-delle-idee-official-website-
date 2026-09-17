@@ -117,14 +117,46 @@ document.addEventListener('DOMContentLoaded', function () {
       document.body.classList.remove('modal-open');
     };
 
+    var oggi = new Date();
+    oggi.setHours(0, 0, 0, 0);
+
     document.querySelectorAll('.event-card').forEach(function (card) {
       var partecipaBtn = card.querySelector('.event-action .btn');
-      if (partecipaBtn) {
-        partecipaBtn.addEventListener('click', function (e) {
-          e.preventDefault();
-          openEventModal(card);
-        });
+      if (!partecipaBtn) { return; }
+
+      var dataEvento = card.getAttribute('data-event-date');
+      var eventoPassato = false;
+
+      if (dataEvento) {
+        var parti = dataEvento.split('-');
+        var dataEventoObj = new Date(Number(parti[0]), Number(parti[1]) - 1, Number(parti[2]));
+        eventoPassato = dataEventoObj < oggi;
       }
+
+      if (eventoPassato) {
+        partecipaBtn.textContent = 'Evento concluso';
+        partecipaBtn.classList.add('btn-disabled');
+        partecipaBtn.setAttribute('aria-disabled', 'true');
+        partecipaBtn.setAttribute('tabindex', '-1');
+
+        var locandina = card.getAttribute('data-locandina');
+        if (locandina) {
+          var downloadLink = document.createElement('a');
+          downloadLink.href = locandina;
+          downloadLink.className = 'btn btn-outline';
+          downloadLink.textContent = 'Scarica la locandina';
+          downloadLink.setAttribute('download', '');
+          downloadLink.setAttribute('target', '_blank');
+          downloadLink.setAttribute('rel', 'noopener');
+          partecipaBtn.insertAdjacentElement('afterend', downloadLink);
+        }
+      }
+
+      partecipaBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (partecipaBtn.classList.contains('btn-disabled')) { return; }
+        openEventModal(card);
+      });
     });
 
     eventModal.querySelectorAll('[data-modal-close]').forEach(function (btn) {

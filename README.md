@@ -77,6 +77,9 @@ JavaScript. In particolare, sulla scheda:
   locandina che l'utente scarica dopo aver inviato l'adesione. Usa un nome
   file diverso e riconoscibile per ogni evento (es. minuscolo, con trattini,
   senza spazi né accenti).
+- `data-event-date="AAAA-MM-GG"` — la data dell'evento in formato ISO (es.
+  `2026-09-14`), **da includere sempre**: serve allo script per capire se
+  l'evento è già passato. Deve corrispondere alla data mostrata in `.day`/`.month`.
 - Il resto dei campi (`.day`, `.month`, orario, luogo, descrizione) sono solo
   testo da aggiornare liberamente.
 
@@ -85,6 +88,12 @@ lo stesso nome indicato in `data-locandina`. Se il file non c'è ancora, la
 pagina continua a funzionare: il link "Scarica la locandina" punta comunque
 al percorso previsto, e basterà aggiungere il file in seguito senza modificare
 il codice.
+
+Gli eventi con `data-event-date` nel passato vengono gestiti automaticamente:
+il pulsante "Partecipa" diventa "Evento concluso" (disabilitato, non apre più
+la modale) e, se `data-locandina` è presente, compare comunque un pulsante
+"Scarica la locandina" per chi vuole rivederla. Nessuna modifica al JavaScript
+è necessaria: basta mantenere aggiornato `data-event-date` su ogni scheda.
 
 ## Contenuti da completare
 

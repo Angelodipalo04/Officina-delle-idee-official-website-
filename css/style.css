@@ -429,6 +429,18 @@ section {
 
 .event-action {
   align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-disabled,
+.btn-disabled:hover {
+  background: var(--bg-panel);
+  color: var(--text-muted);
+  border: 2px solid var(--border-soft);
+  cursor: not-allowed;
+  transform: none;
 }
 
 .badge-placeholder {
