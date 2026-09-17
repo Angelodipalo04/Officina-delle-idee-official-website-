@@ -594,6 +594,33 @@ textarea:focus {
   color: var(--gold);
 }
 
+.consent-field {
+  margin-top: 6px;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: auto;
+  margin-top: 3px;
+  accent-color: var(--gold);
+}
+
+.checkbox-option span {
+  font-size: .9rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.checkbox-option a {
+  color: var(--gold);
+}
+
 /* =========================
    CONTATTI (placeholder)
    ========================= */
@@ -619,6 +646,33 @@ textarea:focus {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 700;
+}
+
+/* =========================
+   PAGINA PRIVACY
+   ========================= */
+.legal-content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.legal-block {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.legal-block:last-child {
+  border-bottom: none;
+}
+
+.legal-block h2 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.legal-block p {
+  color: var(--text-muted);
+  margin: 0;
 }
 
 /* =========================
@@ -690,6 +744,10 @@ textarea:focus {
   text-align: center;
   color: var(--text-muted);
   font-size: .85rem;
+}
+
+.footer-bottom a:hover {
+  color: var(--gold);
 }
 
 /* =========================
