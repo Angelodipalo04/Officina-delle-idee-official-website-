@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"/c/Users/dipal/Documents/Angelo Di Palo/Progetti personali/AI/sito web officina delle idee\" 2>&1; echo \"---\"; ls -la \"/c/Users/dipal/Downloads/\" | grep -i officina)",
+      "Bash(gh api *)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(curl -sL \"https://raw.githubusercontent.com/tenfoldmarc/website-builder-setup/main/website-builder-setup/SKILL.md\")",
+      "Bash(python3 -c ' *)",
+      "Bash(pip install *)",
+      "Bash(where magick *)",
+      "Bash(where convert *)",
+      "Bash(where ffmpeg *)",
+      "Bash(where node *)",
+      "Bash(where npx *)",
+      "Bash(where python *)",
+      "mcp__claude-in-chrome__navigate"
+    ]
+  }
+}
