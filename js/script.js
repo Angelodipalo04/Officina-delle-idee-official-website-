@@ -80,4 +80,98 @@ document.addEventListener('DOMContentLoaded', function () {
     aggiornaMetodoPagamento();
     aggiornaDettagliTessera();
   }
+
+  // Modale iscrizione evento (pagina eventi)
+  var eventModal = document.getElementById('eventModal');
+  var eventoForm = document.getElementById('eventoForm');
+
+  if (eventModal && eventoForm) {
+    var eventModalTitle = document.getElementById('eventModalTitle');
+    var eventoInput = document.getElementById('eventoInput');
+    var eventModalFormView = document.getElementById('eventModalForm');
+    var eventModalSuccessView = document.getElementById('eventModalSuccess');
+    var eventModalDownload = document.getElementById('eventModalDownload');
+    var eventoSubmitBtn = eventoForm.querySelector('button[type="submit"]');
+    var eventoSubmitLabel = eventoSubmitBtn ? eventoSubmitBtn.textContent : '';
+    var currentLocandina = '';
+
+    var openEventModal = function (card) {
+      var titolo = card.getAttribute('data-event-title') || '';
+      currentLocandina = card.getAttribute('data-locandina') || '#';
+
+      eventoForm.reset();
+      eventModalFormView.style.display = 'block';
+      eventModalSuccessView.style.display = 'none';
+
+      if (eventModalTitle) { eventModalTitle.textContent = titolo; }
+      if (eventoInput) { eventoInput.value = titolo; }
+
+      eventModal.classList.add('active');
+      eventModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    };
+
+    var closeEventModal = function () {
+      eventModal.classList.remove('active');
+      eventModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+    };
+
+    document.querySelectorAll('.event-card').forEach(function (card) {
+      var partecipaBtn = card.querySelector('.event-action .btn');
+      if (partecipaBtn) {
+        partecipaBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          openEventModal(card);
+        });
+      }
+    });
+
+    eventModal.querySelectorAll('[data-modal-close]').forEach(function (btn) {
+      btn.addEventListener('click', closeEventModal);
+    });
+
+    eventModal.addEventListener('click', function (e) {
+      if (e.target === eventModal) { closeEventModal(); }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && eventModal.classList.contains('active')) {
+        closeEventModal();
+      }
+    });
+
+    eventoForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var datiForm = new URLSearchParams(new FormData(eventoForm)).toString();
+
+      if (eventoSubmitBtn) {
+        eventoSubmitBtn.disabled = true;
+        eventoSubmitBtn.textContent = 'Invio in corso...';
+      }
+
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: datiForm
+      })
+        .then(function () {
+          eventModalFormView.style.display = 'none';
+          eventModalSuccessView.style.display = 'block';
+          if (eventModalDownload) {
+            eventModalDownload.setAttribute('href', currentLocandina);
+          }
+        })
+        .catch(function () {
+          alert('Si è verificato un errore nell\'invio. Riprova più tardi.');
+        })
+        .finally(function () {
+          if (eventoSubmitBtn) {
+            eventoSubmitBtn.disabled = false;
+            eventoSubmitBtn.textContent = eventoSubmitLabel;
+          }
+        });
+    });
+  }
 });

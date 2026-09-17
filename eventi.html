@@ -54,7 +54,7 @@
 
         <div class="events-list">
 
-          <article class="event-card">
+          <article class="event-card" data-event-title="Serata di presentazione dell'associazione" data-locandina="locandine/serata-presentazione-associazione.pdf">
             <div class="event-date">
               <span class="day">14</span>
               <span class="month">Set</span>
@@ -72,11 +72,11 @@
               </p>
             </div>
             <div class="event-action">
-              <a href="iscrizione.html" class="btn btn-gold">Partecipa</a>
+              <a href="#" class="btn btn-gold">Partecipa</a>
             </div>
           </article>
 
-          <article class="event-card">
+          <article class="event-card" data-event-title="Dibattito pubblico: attualità e social media" data-locandina="locandine/dibattito-attualita-social-media.pdf">
             <div class="event-date">
               <span class="day">05</span>
               <span class="month">Ott</span>
@@ -94,11 +94,11 @@
               </p>
             </div>
             <div class="event-action">
-              <a href="iscrizione.html" class="btn btn-gold">Partecipa</a>
+              <a href="#" class="btn btn-gold">Partecipa</a>
             </div>
           </article>
 
-          <article class="event-card">
+          <article class="event-card" data-event-title="Aperitivo con i soci" data-locandina="locandine/aperitivo-con-i-soci.pdf">
             <div class="event-date">
               <span class="day">22</span>
               <span class="month">Nov</span>
@@ -116,7 +116,7 @@
               </p>
             </div>
             <div class="event-action">
-              <a href="iscrizione.html" class="btn btn-gold">Partecipa</a>
+              <a href="#" class="btn btn-gold">Partecipa</a>
             </div>
           </article>
 
@@ -167,6 +167,61 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="eventModal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="eventModalTitle">
+      <button type="button" class="modal-close" data-modal-close aria-label="Chiudi">&times;</button>
+
+      <div id="eventModalForm">
+        <span class="modal-eyebrow">Partecipa all'evento</span>
+        <h3 id="eventModalTitle">Titolo evento</h3>
+
+        <form name="iscrizione-evento" id="eventoForm" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <input type="hidden" name="form-name" value="iscrizione-evento">
+          <input type="hidden" name="evento" id="eventoInput" value="">
+          <p class="honeypot-field">
+            <label>Non compilare questo campo se sei umano: <input name="bot-field"></label>
+          </p>
+
+          <div class="field">
+            <label for="evento-nome">Nome</label>
+            <input type="text" id="evento-nome" name="nome" required autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="evento-cognome">Cognome</label>
+            <input type="text" id="evento-cognome" name="cognome" required autocomplete="family-name">
+          </div>
+          <div class="field">
+            <label for="evento-email">Email</label>
+            <input type="email" id="evento-email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="evento-persone">Numero di persone che porti con te</label>
+            <input type="number" id="evento-persone" name="numero_persone" min="1" value="1" required>
+          </div>
+          <div class="field">
+            <label for="evento-tessera">Sei già tesserato?</label>
+            <select id="evento-tessera" name="tesseramento" required>
+              <option value="No, non sono ancora tesserato">No, non sono ancora tesserato</option>
+              <option value="Sì, Tessera Junior">Sì, Tessera Junior</option>
+              <option value="Sì, Tessera Senior">Sì, Tessera Senior</option>
+              <option value="Sì, Tessera Partner">Sì, Tessera Partner</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-gold btn-block">Invia adesione</button>
+        </form>
+      </div>
+
+      <div id="eventModalSuccess" class="modal-success" style="display:none;">
+        <span class="modal-eyebrow">Adesione ricevuta</span>
+        <h3>Grazie per la tua adesione!</h3>
+        <p>Abbiamo ricevuto i tuoi dati per l'evento. Scarica la locandina qui sotto e salva la data!</p>
+        <a href="#" id="eventModalDownload" class="btn btn-gold" download target="_blank" rel="noopener">Scarica la locandina</a>
+        <button type="button" class="btn btn-outline" data-modal-close style="margin-top:12px;">Chiudi</button>
+      </div>
+    </div>
+  </div>
 
   <script src="js/script.js"></script>
 </body>
